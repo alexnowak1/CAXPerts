@@ -27,16 +27,16 @@ namespace PatternRecognition
                         {
                             for (byte y = 0; y < 5; y++)
                             {
-                                if (sr.Peek() == 13 || sr.Peek() == 10)
+                                if ((char)sr.Peek() == 13) // /r/n überspringen
                                 {
-                                    sr.Read(); sr.Read(); //Newline-Chars überspringen
+                                    sr.Read(); sr.Read();
                                 }
                                 template.Matrix[x, y] = (char)sr.Read();
                             }
                         }
                         template.Number = Convert.ToByte(file.Name.Substring(0, 1));
                     }
-                    NumberTemplateCollection.templateList.Add(template);
+                    GlobalTemplates.templateList.Add(template);
                 }
             }
             catch (Exception)

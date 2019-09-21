@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace PatternRecognition
 {
@@ -12,7 +13,14 @@ namespace PatternRecognition
                 tr.ReadTemplate(Environment.CurrentDirectory + "\\NumberTemplates\\");
 
                 Comparer cr = new Comparer();
-                cr.RunComparison(Environment.CurrentDirectory + "\\TestCases\\NumberParserExtended.txt");
+                var ret = cr.RunComparison(Environment.CurrentDirectory + "\\TestCases\\NumberParserExtended.txt");
+
+                Console.Write("Folgende Zahlen wurden gefunden: ");
+                foreach (var x in ret)
+                {
+                    Console.Write(x +",");
+                }
+                Console.ReadLine();
             }
             catch (Exception ex)
             {
