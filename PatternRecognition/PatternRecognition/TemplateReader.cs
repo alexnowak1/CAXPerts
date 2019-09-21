@@ -8,14 +8,7 @@ namespace PatternRecognition
 {
     public class TemplateReader
     {
-        readonly NumberTemplate template;
-        readonly NumberTemplateCollection templateList;
-
-        public TemplateReader()
-        {
-            template = new NumberTemplate();
-            templateList = new NumberTemplateCollection();
-        }
+        NumberTemplate template;
 
         public void ReadTemplate(string Path)
         {
@@ -27,6 +20,7 @@ namespace PatternRecognition
                 {
                     if (!CheckFilenameIsNumeric(file.Name)) { throw new Exception("Template-Dateien müssen einen einstelligen numerischen Namen haben (z.B. 1.txt). Vorgang abgebrochen"); }
 
+                    template = new NumberTemplate();
                     using (StreamReader sr = new StreamReader(file.FullName))
                     {
                         for (byte x = 0; x < 4; x++)
@@ -42,7 +36,7 @@ namespace PatternRecognition
                         }
                         template.Number = Convert.ToByte(file.Name.Substring(0, 1));
                     }
-                    templateList.templateList.Add(template);
+                    NumberTemplateCollection.templateList.Add(template);
                 }
             }
             catch (Exception)

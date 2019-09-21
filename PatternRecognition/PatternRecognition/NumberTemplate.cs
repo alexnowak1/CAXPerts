@@ -16,14 +16,14 @@ namespace PatternRecognition
         public byte Number { get; set; }
     }
 
-    public class NumberTemplateCollection
+    public static class NumberTemplateCollection
     {
-        public List<NumberTemplate> _templateList = new List<NumberTemplate>();
-        public List<NumberTemplate> templateList
-        {
-            get { return _templateList; }
-            set { _templateList = value; }
-        }
+        public static List<NumberTemplate> _templateList; // = new List<NumberTemplate>();
+        public static List<NumberTemplate> templateList = new List<NumberTemplate>();
+        //{
+        //    get { return _templateList; }
+        //    set { _templateList = value; }
+        //}
 
     }
 }

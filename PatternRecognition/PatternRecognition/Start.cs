@@ -9,7 +9,10 @@ namespace PatternRecognition
             try
             {
                 TemplateReader tr = new TemplateReader();
-                tr.ReadTemplate(Environment.CurrentDirectory + "TemplateFormat\\");
+                tr.ReadTemplate(Environment.CurrentDirectory + "\\NumberTemplates\\");
+
+                Comparer cr = new Comparer();
+                cr.RunComparison(Environment.CurrentDirectory + "\\TestCases\\NumberParserExtended.txt");
             }
             catch (Exception ex)
             {
