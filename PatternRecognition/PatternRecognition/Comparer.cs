@@ -7,8 +7,17 @@ namespace PatternRecognition
 {
     public class Comparer
     {
-        private char[,] FileContents = new char[100, 100];
-        private List<byte> ReturnList = new List<byte>();
+        private char[,] fileContents = new char[100, 100];
+        private List<byte> returnList = new List<byte>();
+
+        public Comparer()
+        {
+            if (GlobalTemplates.TemplateList.Count == 0) //Templates nur einmal aus Dateien laden
+            {
+                TemplateReader tr = new TemplateReader();
+                tr.ReadTemplates();
+            }
+        }
 
         public List<byte> RunComparison(string File)
         {
@@ -22,7 +31,7 @@ namespace PatternRecognition
                     while (!sr.EndOfStream)
                     {
                         //Datei in Array einlesen
-                        FileContents[y, x] = (char)sr.Read();
+                        fileContents[y, x] = (char)sr.Read();
                         x++;
                         if ((char)sr.Peek() == 13) // /r/n überspringen
                         {
@@ -33,27 +42,27 @@ namespace PatternRecognition
                     }
                 }
 
-                for (byte y = 0; y < FileContents.GetLength(1); y++)
+                for (byte y = 0; y < fileContents.GetLength(1); y++)
                 {
-                    for (byte x = 0; x < FileContents.GetLength(0); x++)
+                    for (byte x = 0; x < fileContents.GetLength(0); x++)
                     {
-                        if (FileContents[y, x] == (char)'\0') //Ende erreicht, 4 Zeilen überspringen
+                        if (fileContents[y, x] == (char)'\0') //Ende erreicht, 4 Zeilen überspringen
                         {
                             y += 4;
                             x = 0;
-                            if (y >= FileContents.GetLength(1)) { break; }
+                            if (y >= fileContents.GetLength(1)) { break; }
                         }
-                        if (FileContents[y, x] != (char)32)//Leerzeichen überspringen
+                        if (fileContents[y, x] != (char)32) //Leerzeichen überspringen
                         {
                             //Char gefunden. Vergleiche es mit dem ersten Char der vorhandenen Templates
-                            foreach (var template in GlobalTemplates.templateList)
+                            foreach (var template in GlobalTemplates.TemplateList)
                             {
-                                if (template.Matrix[0, 0] == FileContents[y, x]) //Wahrscheinlicher Treffer
+                                if (template.Matrix[0, 0] == fileContents[y, x]) //Wahrscheinlicher Treffer
                                 {
                                     if (CompareWithTemplate(x, y, template))
                                     {
                                         //Treffer!
-                                        ReturnList.Add(template.Number);
+                                        returnList.Add(template.Number);
                                         x += 4;
                                         break;
                                     }
@@ -62,14 +71,12 @@ namespace PatternRecognition
                         }
                     }
                 }
-                return ReturnList;
+                return returnList;
             }
             catch (Exception ex)
             {
                 throw;
             }
-
-
         }
 
         private bool CompareWithTemplate(byte x, byte y, PatternRecognition.NumberTemplate template)
@@ -78,7 +85,7 @@ namespace PatternRecognition
             {
                 for (byte cutX = 0; cutX < 5; cutX++)
                 {
-                    if (FileContents[(y + cutY), (x + cutX)] != template.Matrix[cutY, cutX])
+                    if (fileContents[(y + cutY), (x + cutX)] != template.Matrix[cutY, cutX])
                     {
                         //Kein Treffer mehr!
                         return false;

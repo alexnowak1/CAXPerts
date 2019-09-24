@@ -6,18 +6,12 @@ namespace PatternRecognition
 {
     public class NumberTemplate
     {
-        private char[,] _Matrix = new char[4, 5];
-        public char[,] Matrix
-        {
-            get { return _Matrix; }
-            set { _Matrix = value; }
-        }
-
+        public char[,] Matrix { get; set; } = new char[4, 5];
         public byte Number { get; set; }
     }
 
     public static class GlobalTemplates
     {
-        public static List<NumberTemplate> templateList = new List<NumberTemplate>();
+        public static List<NumberTemplate> TemplateList = new List<NumberTemplate>();
     }
 }

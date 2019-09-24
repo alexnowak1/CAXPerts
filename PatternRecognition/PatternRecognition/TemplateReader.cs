@@ -10,9 +10,9 @@ namespace PatternRecognition
     {
         NumberTemplate template;
 
-        public void ReadTemplate(string Path)
+        public void ReadTemplates()
         {
-            DirectoryInfo d = new DirectoryInfo(Path);
+            DirectoryInfo d = new DirectoryInfo(Environment.CurrentDirectory + "\\NumberTemplates\\");
 
             try
             {
@@ -36,7 +36,7 @@ namespace PatternRecognition
                         }
                         template.Number = Convert.ToByte(file.Name.Substring(0, 1));
                     }
-                    GlobalTemplates.templateList.Add(template);
+                    GlobalTemplates.TemplateList.Add(template);
                 }
             }
             catch (Exception)
@@ -45,10 +45,10 @@ namespace PatternRecognition
             }
         }
 
-        private bool CheckFilenameIsNumeric(string Filename)
+        private bool CheckFilenameIsNumeric(string filename)
         {
             int number;
-            return Int32.TryParse(Filename.Substring(0, 1), out number);
+            return Int32.TryParse(filename.Substring(0, 1), out number);
         }
     }
 }

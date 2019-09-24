@@ -9,8 +9,7 @@ namespace PatternRecognition
         {
             try
             {
-                TemplateReader tr = new TemplateReader();
-                tr.ReadTemplate(Environment.CurrentDirectory + "\\NumberTemplates\\");
+                string _result = String.Empty;
 
                 Comparer cr = new Comparer();
                 var ret = cr.RunComparison(Environment.CurrentDirectory + "\\TestCases\\NumberParserExtended.txt");
@@ -18,8 +17,9 @@ namespace PatternRecognition
                 Console.Write("Folgende Zahlen wurden gefunden: ");
                 foreach (var x in ret)
                 {
-                    Console.Write(x +",");
+                    _result += x + ",";
                 }
+                Console.Write(_result.Substring(0, _result.Length-1));
                 Console.ReadLine();
             }
             catch (Exception ex)
