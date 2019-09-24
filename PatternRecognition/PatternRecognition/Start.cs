@@ -11,7 +11,7 @@ namespace PatternRecognition
             {
                 string _result = String.Empty;
 
-                Comparer cr = new Comparer();
+                IComparer cr = new Comparer();
                 var ret = cr.RunComparison(Environment.CurrentDirectory + "\\TestCases\\NumberParserExtended.txt");
 
                 Console.Write("Folgende Zahlen wurden gefunden: ");

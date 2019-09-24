@@ -5,7 +5,11 @@ using System.Text;
 
 namespace PatternRecognition
 {
-    public class Comparer
+    public interface IComparer
+    {
+        List<byte> RunComparison(string File);
+    }
+    public class Comparer : IComparer
     {
         private char[,] fileContents = new char[100, 100];
         private List<byte> returnList = new List<byte>();
@@ -14,7 +18,7 @@ namespace PatternRecognition
         {
             if (GlobalTemplates.TemplateList.Count == 0) //Templates nur einmal aus Dateien laden
             {
-                TemplateReader tr = new TemplateReader();
+                ITemplateReader tr = new TemplateReader();
                 tr.ReadTemplates();
             }
         }

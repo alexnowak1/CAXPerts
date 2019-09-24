@@ -6,7 +6,12 @@ using System.Text;
 
 namespace PatternRecognition
 {
-    public class TemplateReader
+    interface ITemplateReader
+    {
+         void ReadTemplates();
+    }
+
+    public class TemplateReader : ITemplateReader
     {
         NumberTemplate template;
 
